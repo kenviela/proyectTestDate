@@ -1,12 +1,10 @@
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
-
+/***prueba de carga dfgdfgdfgdf */
 public class TestCrudApis {
     @Test
     public void PostLoginUnknown(){
-        /**
-         * ejercicio*/
         String response = RestAssured
                 .given()
                 .contentType(ContentType.JSON)
@@ -21,11 +19,13 @@ public class TestCrudApis {
 
         System.out.println("La respuesta es:\n" + response);
     }
+
     @Test
     public void GetListUnknown(){
         RestAssured.when().get("https://reqres.in/api/unknown").
                 then().log().all();
     }
+
     @Test
     public void PutUpdateUnknown(){
         RestAssured
@@ -41,6 +41,7 @@ public class TestCrudApis {
                 .log().all()
                 .extract().asString();
     }
+
     @Test
     public void DeleteUnknown(){
         RestAssured.when().delete("https://reqres.in/api/users/2").then().log().all();
