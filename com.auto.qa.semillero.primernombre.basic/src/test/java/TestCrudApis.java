@@ -8,11 +8,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.MatcherAssert.assertThat;
+
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
+
 public class PullRequestReto2 {
+
     @BeforeEach
     public void setup(){
         RestAssured.baseURI="https://reqres.in";
@@ -34,15 +36,21 @@ public class PullRequestReto2 {
     public void GetListUnknown(){
         RestAssured.when().get("https://reqres.in/api/unknown").
                 then()
+
+                .body("page",equalTo(1))
+                .body("token",notNullValue());
                 .body("page",equalTo(1));
+
     }
     @Test
     public void PutUpdateUnknown(){
         given()
                 .log().all()
                 .body("{\n" +
-                        "    \"name\": \"Marlon Nieves\",\n" +
-                        "    \"job\": \"QA Automation SENIOR\"\n" +
+                        "    \"name\": \"JOSEESAU\",\n" +
+                        "    \"job\": \"Developer\"\n" +
+
+
                         "}")
                 .put("https://reqres.in/api/users/7");
     }
@@ -55,12 +63,12 @@ public class PullRequestReto2 {
         String nameUpdate = given().
                 when()
                 .body("{\n" +
-                        "    \"name\": \"Marlon\",\n" +
+                        "    \"name\": \"prueba\",\n" +
                         "    \"job\": \"QA Automation JR\"\n" +
                         "}")
                 .patch("user/2").then().statusCode(HttpStatus.SC_OK)
                 .extract().jsonPath().get("name");
-        assertThat(nameUpdate,equalTo("Marlon"));
+        assertThat(nameUpdate,equalTo("prueba"));
 
     }
 }
